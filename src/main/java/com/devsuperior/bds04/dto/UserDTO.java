@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devsuperior.bds04.entities.User;
+
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +21,12 @@ public class UserDTO implements Serializable {
 		this.id = id;
 		this.email = email;
 		this.roles = roles;
+	}
+	
+	public UserDTO(User entity) {
+		id = entity.getId();
+		email = entity.getEmail();
+		roles.forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
