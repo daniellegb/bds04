@@ -1,36 +1,28 @@
 package com.devsuperior.bds04.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.bds04.dto.CityDTO;
-import com.devsuperior.bds04.entities.City;
-import com.devsuperior.bds04.repositories.CityRepository;
+
+import com.devsuperior.bds04.services.CityService;
 
 @RestController
 @RequestMapping(value = "/cities")
 public class CityResource {
 
 	@Autowired
-	private CityRepository repository;
+	private CityService service;
 	
-	@Transactional(readOnly = true)
-	public List<CityDTO> findAll(){
-		List<City> list = repository.findAll();
-		return createDtoFromEntity(list);
-	}
-	
-	private List<CityDTO> createDtoFromEntity(List<City> entities){
-		List<CityDTO> dtos = new ArrayList<>();
-		for(int x = 0; x<entities.size(); x++) {
-			dtos.add(new CityDTO(entities.get(x)));
-		}
-		return dtos;
+	@GetMapping
+	public ResponseEntity<List<CityDTO>> findAll(){
+		List<CityDTO> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
 }
