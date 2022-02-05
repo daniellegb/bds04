@@ -12,7 +12,7 @@ import com.devsuperior.bds04.dto.RoleDTO;
 import com.devsuperior.bds04.services.RoleService;
 
 @RestController
-@RequestMapping(value = "/cities")
+@RequestMapping(value = "/roles")
 public class RoleResource {
 
 	@Autowired

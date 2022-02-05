@@ -1,8 +1,8 @@
 package com.devsuperior.bds04.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.devsuperior.bds04.entities.User;
 
@@ -11,12 +11,12 @@ public class UserDTO implements Serializable {
 	
 	private Long id;
 	private String email;
-	private List<RoleDTO> roles = new ArrayList<>();
-
+	Set<RoleDTO> roles = new HashSet<>();
+	
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String email, List<RoleDTO> roles) {
+	public UserDTO(Long id, String email, Set<RoleDTO> roles) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -26,7 +26,8 @@ public class UserDTO implements Serializable {
 	public UserDTO(User entity) {
 		id = entity.getId();
 		email = entity.getEmail();
-		roles.forEach(role -> this.roles.add(new RoleDTO(role)));
+		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+
 	}
 
 	public Long getId() {
@@ -45,14 +46,12 @@ public class UserDTO implements Serializable {
 		this.email = email;
 	}
 
-	public List<RoleDTO> getRoles() {
+	public Set<RoleDTO> getRoles() {
 		return roles;
 	}
 
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
+	}
 
-
-	
-	
-	
-	
 }
