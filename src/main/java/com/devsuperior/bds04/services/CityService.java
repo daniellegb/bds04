@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +32,17 @@ public class CityService {
 		}
 		return dtos;
 	}
-	
+
+	public Page<CityDTO> findAllPaged(PageRequest pageRequest) {
+		Page<City> list =repository.findAll(pageRequest);
+		return list.map(x -> new CityDTO(x));
+	}
+
+	@Transactional
+	public CityDTO insert(CityDTO dto) {
+		City entity = new City(dto.getName());
+		entity = repository.save(entity);
+		return new CityDTO(entity);
+	}
+
 }

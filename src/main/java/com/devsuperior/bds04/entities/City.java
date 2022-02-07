@@ -29,6 +29,14 @@ public class City {
 		this.id = id;
 		this.name = name;
 	}
+	
+	public City(Long id) {
+		this.id = id;
+	}
+	
+	public City(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

@@ -31,4 +31,11 @@ public class EventService {
 		return dtos;
 	}
 	
+	@Transactional
+	public EventDTO insert(EventDTO dto) {
+		Event entity = new Event(dto);
+		entity = repository.save(entity);
+		return new EventDTO(entity);
+	}
+	
 }
