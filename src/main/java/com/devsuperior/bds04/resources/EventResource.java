@@ -1,16 +1,18 @@
 package com.devsuperior.bds04.resources;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,8 +27,12 @@ public class EventResource {
 	private EventService service;
 	
 	@GetMapping
-	public ResponseEntity<List<EventDTO>> findAll(){
-		List<EventDTO> list = service.findAll();
+	public ResponseEntity<Page<EventDTO>> findAll(
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "11") Integer linesPerPage
+			){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+		Page<EventDTO> list = service.findAllPaged(pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
 	

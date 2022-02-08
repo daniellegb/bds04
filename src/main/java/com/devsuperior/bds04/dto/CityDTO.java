@@ -10,7 +10,7 @@ public class CityDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	@NotBlank(message = "Required field!")
+	@NotBlank(message = "Campo requerido")
 	private String name;
 	
 	public CityDTO() {

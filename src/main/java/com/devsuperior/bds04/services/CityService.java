@@ -33,8 +33,9 @@ public class CityService {
 		return dtos;
 	}
 
+	@Transactional
 	public Page<CityDTO> findAllPaged(PageRequest pageRequest) {
-		Page<City> list =repository.findAll(pageRequest);
+		Page<City> list = repository.findAll(pageRequest);
 		return list.map(x -> new CityDTO(x));
 	}
 
